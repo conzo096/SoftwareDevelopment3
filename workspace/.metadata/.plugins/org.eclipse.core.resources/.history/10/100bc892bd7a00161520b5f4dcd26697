@@ -1,0 +1,10 @@
+
+public class WhiteBall extends Ball
+{
+	public String GetType()
+	{
+		return "WhiteBall";
+	}
+	
+
+}

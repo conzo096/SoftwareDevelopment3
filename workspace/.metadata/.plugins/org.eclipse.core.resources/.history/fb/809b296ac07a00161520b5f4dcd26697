@@ -1,0 +1,35 @@
+import javax.swing.JOptionPane;
+import java.util.Random;
+public class Main
+{
+
+	public static void main(String[] args)
+	{
+		// Winner of game.
+		Ball winner;
+		
+		BlackBall black = new BlackBall();
+		WhiteBall white = new WhiteBall();
+		
+		Random gen = new Random();
+		
+		int num = gen.nextInt(2);
+		if(num == 0)
+		{
+			winner = new WhiteBall();
+		}
+		else if (num == 1)
+		{
+			winner = new BlackBall();
+		}
+		
+	}
+
+	public void PrintWinner(String type)
+	{
+		String output = type;
+		  JOptionPane.showMessageDialog(null,"TEST", "Test", JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	}
+}

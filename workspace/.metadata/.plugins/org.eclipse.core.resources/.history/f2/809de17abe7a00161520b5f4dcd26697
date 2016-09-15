@@ -1,0 +1,8 @@
+
+public class BlackBall implements Type
+{
+	public String GetType()
+	{
+		return "BlackBall";
+	}
+}

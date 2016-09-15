@@ -1,0 +1,6 @@
+
+public class Ball implements Type
+{
+	String type;
+	String colour;
+}

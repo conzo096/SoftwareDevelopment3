@@ -1,0 +1,9 @@
+
+public class Ball implements Type
+{
+
+	public String GetType()
+	{
+		return "Ball";
+	}
+}

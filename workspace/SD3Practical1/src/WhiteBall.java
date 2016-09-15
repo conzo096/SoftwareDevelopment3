@@ -1,0 +1,11 @@
+
+public class WhiteBall implements Type
+{
+	WhiteBall(){}
+	
+	public String GetType()
+	{
+		return "WhiteBall";
+	}
+	
+}

@@ -1,0 +1,6 @@
+
+public class Ball implements WineDrinker
+{
+	String type;
+	String colour;
+}
