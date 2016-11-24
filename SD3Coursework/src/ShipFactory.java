@@ -1,0 +1,25 @@
+
+public  class ShipFactory
+{
+	// Example of the factory pattern.
+	// This holds all the type of ships that can be created.
+	public static Ship CreateShip(String shipType)
+	{	
+		if(shipType.equalsIgnoreCase("BattleCrusier"))
+		{
+			return new BattleCrusier();
+
+		}
+		else if(shipType.equalsIgnoreCase("BattleShooter"))
+		{
+			return new BattleShooter();
+
+		}
+		else if(shipType.equalsIgnoreCase("BattleStar"))
+		{
+			return new BattleStar();
+		}
+
+		return null;
+	}
+}

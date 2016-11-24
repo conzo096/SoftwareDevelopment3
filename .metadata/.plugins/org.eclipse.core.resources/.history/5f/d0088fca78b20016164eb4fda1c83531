@@ -1,0 +1,27 @@
+
+public  class ShipFactory
+{
+	public Ship CreateShip(String shipType)
+	{
+		if(shipType == null)
+		{
+			return null;
+		}		
+		if(shipType.equalsIgnoreCase("BatleCrusier"))
+		{
+			return new BattleCrusier();
+
+		}
+		else if(shipType.equalsIgnoreCase("BattleShooter"))
+		{
+			return new BattleShooter();
+
+		}
+		else if(shipType.equalsIgnoreCase("BattleStar"))
+		{
+			return new BattleStar();
+		}
+
+		return null;
+	}
+}

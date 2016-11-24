@@ -1,16 +1,10 @@
+import java.util.Random;
 import java.util.Vector;
 
 
 public class GameManager
 {
 		Vector<Ship> ships = new Vector<Ship>();
-		
-		private MasterShip playerShip = new MasterShip();
-		//private Vector<Ship> bcShips = new Vector<Ship>();
-		//private Vector<Ship> bsShips = new Vector<Ship>();
-		//private	Vector<Ship> BstShips = new Vector<Ship>();
-		
-		
 		private GameGrid grid = new GameGrid();
 		
 		
@@ -19,35 +13,52 @@ public class GameManager
 		{
 			// Set top grid to prevent entry.
 			grid.SetTileCondition(0, 0, false);
-			
+			MasterShip playerShip = new MasterShip();
+			ships.add(playerShip);
 		
 		}
 		
 		
 		
 		void Update()
-		{
-			
-			System.out.println("New: " +playerShip.GetPosition().toString());
-			System.out.println("Old: " + playerShip.GetPreviousPositions().lastElement().toString());
-			playerShip.MakeMove();
-			
-			
+		{	
+			if(ships.size()>0)
 			for(Ship ship : ships)
 			{
 				ship.MakeMove();
-				
 			}
+			// Factory pattern.
+			Random rand = new Random();
+			int chance = rand.nextInt(3);
+			// 33% chance to create new ship
+			if (chance == 0)
+			{
+				Ship newShip = null;
+				
+				int spawn = rand.nextInt(3);
+				if(spawn == 0)
+				{
+					newShip = ShipFactory.CreateShip("BattleCrusier");
+				}
+				else if(spawn == 1)
+				{
+					newShip = ShipFactory.CreateShip("BattleShooter");
+				}
+				else if(spawn == 2)
+				{
+					newShip = ShipFactory.CreateShip("BattleStar");
+				}	
+				ships.add(newShip);
+			}
+			
+			// Update sky.
+			grid.UpdateGrids(ships);
+			
+			// Check grids.
 		}
 		
 		void Undo()
 		{
-			System.out.println("Prev: " +playerShip.GetPosition().toString());
-			System.out.println("New: " + playerShip.GetPreviousPositions().lastElement().toString());
-			playerShip.UndoMove();
-			
-			
-			
 			for(Ship ship : ships)
 			{
 				ship.UndoMove();
@@ -64,40 +75,6 @@ public class GameManager
 		{
 			
 		}
-		
-		public MasterShip GetPlayerShip() {
-			return playerShip;
-		}
-
-		public void SetPlayerShip(MasterShip playerShip) {
-			this.playerShip = playerShip;
-		}
-
-/*		public Vector<Ship> GetBcShips() {
-			return bcShips;
-		}
-
-		public void SetBcShips(Vector<Ship> bcShips) {
-			this.bcShips = bcShips;
-		}
-
-		public Vector<Ship> GetBsShips() {
-			return bsShips;
-		}
-
-		public void SetBsShips(Vector<Ship> bsShips)
-		{
-			this.bsShips = bsShips;
-		}
-
-		public Vector<Ship> GetBstShips() {
-			return BstShips;
-		}
-
-		public void SetBstShips(Vector<Ship> bstShips)
-		{
-			BstShips = bstShips;
-		}*/
 
 		public GameGrid GetGrid() {
 			return grid;

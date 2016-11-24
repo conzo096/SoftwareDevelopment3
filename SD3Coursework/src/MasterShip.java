@@ -3,6 +3,8 @@ import java.util.Random;
 
 public class MasterShip extends Ship
 {
+	// Change mode to interface to allow more options. currently 0 = defensive.
+	Boolean mode;
 	public MasterShip()
 	{
 		// Chose a random tile (Other than 0,0) to start one.
@@ -15,5 +17,14 @@ public class MasterShip extends Ship
 			GetPosition().setLocation(x,y);
 			GetPreviousPositions().add(GetPosition());
 		}
+	}
+	
+	void SetMode(Boolean b)
+	{
+		mode = b;
+	}
+	Boolean GetMode()
+	{
+		return mode;
 	}
 }

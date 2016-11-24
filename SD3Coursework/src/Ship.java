@@ -4,10 +4,8 @@ import java.util.Random;
 import java.util.Vector;
 
 
-public abstract class Ship
+public abstract class Ship extends Thread
 {
-	// Path to image for graphic.
-	private String filePath;
 	// Previous positions.
 	private Vector<Point2D> previousMoves = new Vector<Point2D>();
 	// Current position.
@@ -24,10 +22,9 @@ public abstract class Ship
 	{	
 		// Add current position to list.
 		previousMoves.add(position);
-	//	Point2D prev = position;
 		Random numGen = new Random();
 		boolean valid = false;
-		int x,y;
+		int x=0,y=0;
 
 		// Check to ensure valid move - move to seperate method.
 		while(valid == false)
@@ -51,15 +48,18 @@ public abstract class Ship
 			if(x == 0 && y == 0)
 				valid = false;
 			
-			// All positions valid. Set position.
-			if (valid == true)
-				position.setLocation(x,y);
-		
 		}
+			// All positions valid. Set position.
+			position.setLocation(x,y);
 	}
 
 	public void UndoMove()
 	{
+		// If no more moves delete.
+		if(previousMoves.lastElement() == null)
+		{
+			
+		}
 		
 		SetPosition(previousMoves.lastElement());
 		// Remove last move from list.
@@ -67,15 +67,6 @@ public abstract class Ship
 		
 	}
 	
-	public String GetFilePath()
-	{
-		return filePath;
-	}
-
-	public void SetFilePath(String filePath)
-	{
-		this.filePath = filePath;
-	}
 
 	public Point2D GetPosition()
 	{

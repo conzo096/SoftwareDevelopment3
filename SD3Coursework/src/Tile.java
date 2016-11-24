@@ -14,6 +14,14 @@ public class Tile
 	Tile()
 	{
 		 allowedToEnter = true;
+		 currentShips = new Vector<Ship>();
+	}
+	
+	
+	public void AddShip(Ship ship)
+	{
+		currentShips.add(ship);
+		
 	}
 	public Vector<Ship> GetCurrentShips()
 	{
