@@ -1,12 +1,10 @@
 import java.util.Vector;
 
 
-public class Tile
+public class Tile implements java.io.Serializable
 {
 	// Hold a list of ships in this square.
 	private Vector<Ship> currentShips;
-	// Hold a path to an image to texture grid tile.
-	private String filePath;
 	// Condition to check if allowed visit tile.
 	private boolean allowedToEnter;
 	
@@ -31,14 +29,7 @@ public class Tile
 	{
 		this.currentShips = currentShips;
 	}
-	public String GetFilePath()
-	{
-		return filePath;
-	}
-	public void SetFilePath(String filePath)
-	{
-		this.filePath = filePath;
-	}
+
 	public boolean IsAllowedToEnter()
 	{
 		return allowedToEnter;

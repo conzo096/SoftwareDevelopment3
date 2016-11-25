@@ -15,7 +15,6 @@ public class MasterShip extends Ship
 			x = numGen.nextInt(4);
 			y = numGen.nextInt(4);
 			GetPosition().setLocation(x,y);
-			GetPreviousPositions().add(GetPosition());
 		}
 	}
 	

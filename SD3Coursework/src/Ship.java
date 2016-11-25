@@ -4,10 +4,8 @@ import java.util.Random;
 import java.util.Vector;
 
 
-public abstract class Ship extends Thread
+public abstract class Ship extends Thread  implements java.io.Serializable
 {
-	// Previous positions.
-	private Vector<Point2D> previousMoves = new Vector<Point2D>();
 	// Current position.
 	private Point2D position; 
 	
@@ -21,7 +19,6 @@ public abstract class Ship extends Thread
 	public void MakeMove()
 	{	
 		// Add current position to list.
-		previousMoves.add(position);
 		Random numGen = new Random();
 		boolean valid = false;
 		int x=0,y=0;
@@ -53,19 +50,6 @@ public abstract class Ship extends Thread
 			position.setLocation(x,y);
 	}
 
-	public void UndoMove()
-	{
-		// If no more moves delete.
-		if(previousMoves.lastElement() == null)
-		{
-			
-		}
-		
-		SetPosition(previousMoves.lastElement());
-		// Remove last move from list.
-		previousMoves.remove(previousMoves.size()-1);
-		
-	}
 	
 
 	public Point2D GetPosition()
@@ -77,15 +61,4 @@ public abstract class Ship extends Thread
 	{
 		position = pos;
 	}
-	
-	public Vector<Point2D> GetPreviousPositions()
-	{
-		return previousMoves;
-	}
-
-	public void SetPreviousMoves(Vector<Point2D> prev)
-	{
-		previousMoves = prev;
-	}
-	
 }

@@ -1,12 +1,12 @@
+import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.Vector;
 
 
-public class GameGrid
+public class GameGrid implements java.io.Serializable
 {
 	// Game grid.
 	private Tile[][] sky = new Tile[4][4];
-	// Holds all the previous states the grid as been in.
-	//private Vector<GameGrid> previousStates;
 	
 	GameGrid()
 	{
@@ -46,7 +46,7 @@ public class GameGrid
 		// OBSERVER PATTERN.
 		Tile t = sky[col][row];
 		// Displays text for the labels the now.
-		String info = "No Ships here.";
+		String info = "";
 		if(!t.IsAllowedToEnter())
 		{
 			info = "NO ENTRY";
@@ -80,8 +80,6 @@ public class GameGrid
 	
 	Boolean UpdateGrids(Vector<Ship> ships)
 	{
-		//previousStates.add(this);
-		
 		// Better way but this works for now.
 		for(int i =0; i<4;i++)
 		{
@@ -160,5 +158,25 @@ public class GameGrid
 		
 		
 		return lost;
+	}
+
+	Vector<Ship> GetAllShips()
+	{
+		Vector<Ship> activeShips = new Vector<Ship>();
+		for(int i=0;i<4;i++)
+			for(int j=0;j<4;j++)
+				for(Ship s : sky[i][j].GetCurrentShips())
+					activeShips.add(s);
+		return activeShips;
+}
+
+	Point2D FindPlayerShip()
+	{
+		for(int i=0; i<4 ;i++)
+			for(int j=0;j<4;j++)
+				for(Ship s: sky[i][j].GetCurrentShips())
+					if(s.getClass() == MasterShip.class)
+						return new Point(i,j);
+		return null; 
 	}
 }

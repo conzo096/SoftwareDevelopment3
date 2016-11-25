@@ -1,17 +1,21 @@
-	import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.GridLayout;
+import java.awt.Point;
 
-	import javax.swing.JFrame;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+
+import javafx.geometry.Point2D;
+
 import javax.swing.JLabel;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import net.miginfocom.swing.MigLayout;
 	public class GameWindow extends JFrame
 	{
 		private static final long serialVersionUID = 1L;
@@ -57,6 +61,7 @@ import net.miginfocom.swing.MigLayout;
 			contentPane = new JPanel();
 			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 			setContentPane(contentPane);
+			contentPane.setLayout(null);
 			
 			
 			for(Integer col =0; col < 4;col++)
@@ -65,10 +70,12 @@ import net.miginfocom.swing.MigLayout;
 				{
 
 					JLabel tile = new JLabel();
-					tile.setLocation(col*64, row*64);
+					tile.setLocation(col*128,row*128);
+					tile.setBounds(col*120, row*80, 120, 80);
+					tile.setBorder( BorderFactory.createLineBorder(Color.black, 1));
 					tile.setText(col.toString()+","+row.toString());
 					tile.setOpaque(true);
-					tile.setBorder(new EmptyBorder(5,5,5,5));
+
 					if(game.GetGrid().GetTile(col, row).IsAllowedToEnter() == true)
 						tile.setBackground(Color.lightGray);
 					else
@@ -79,55 +86,80 @@ import net.miginfocom.swing.MigLayout;
 				
 			}
 			JButton Move = new JButton("Move");
+			Move.setBounds(521, 221, 200, 100);
 			Move.addActionListener(new ActionListener()
 			{
 				public void actionPerformed(ActionEvent arg0)
 				{
-					System.out.println(game.ships.size());
 					game.Update();
-					// Update Grid.
-					
-					for(int col =0; col <4;col++)
-					{
-						for(int row =0; row < 4; row++)
-						{
-							// Update text in grid.
-							grid[col][row].setText(game.GetGrid().UpdateVisualGrid(col, row));
-
-						}
-					}
-					
+					UpdateLabels();
 				}
 			}	);
-			contentPane.setLayout(null);
-			contentPane.setLayout(new GridLayout(0, 2, 0, 0));
+
 			contentPane.add(Move);
 			
 			JButton btnUndo = new JButton("Undo");
+			btnUndo.setToolTipText("you are a fool, undo your randomly generated move.");
+			btnUndo.setBounds(720, 318, 200, 100);
 			btnUndo.addActionListener(new ActionListener()
 			{
 				public void actionPerformed(ActionEvent arg0)
 				{
-					for(int col =0; col <4;col++)
-					{
-						for(int row =0; row < 4; row++)
-						{
-							// Update text in grid.
-							grid[col][row].setText(game.GetGrid().UpdateVisualGrid(col, row));
-
-						}
-					}
+					game.Undo();
+					UpdateLabels();
 				}
 			});
-			btnUndo.setToolTipText("you are a fool, undo your randomly generated move.");
 			contentPane.add(btnUndo);
 			
 			JButton btnSave = new JButton("Save");
+			btnSave.addActionListener(new ActionListener() 
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					game.SaveGame();
+					UpdateLabels();
+				}
+			});
+			btnSave.setBounds(720, 221, 200, 100);
 			contentPane.add(btnSave);
 			
 			JButton btnLoad = new JButton("Load");
+			btnLoad.addActionListener(new ActionListener()
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					game = GameManager.LoadGame();
+					UpdateLabels();
+				}
+			});
+			btnLoad.setBounds(521, 318, 200, 100);
 			contentPane.add(btnLoad);
+			
+			JButton btnMode = new JButton("Defensive Mode");
+			btnMode.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					
+				}
+			});
+			btnMode.setBounds(720, 127, 200, 100);
+			contentPane.add(btnMode);
 		}
-		
 
+		private void UpdateLabels()
+		{
+			for(int col =0; col <4;col++)
+			{
+				for(int row =0; row < 4; row++)
+				{
+					Point playerPos = (Point) game.GetGrid().FindPlayerShip();
+					grid[playerPos.x][playerPos.y].setForeground(Color.red);
+					if(playerPos.x != col && playerPos.y != row)
+						grid[col][row].setForeground(Color.black);
+					// Update text in grid.
+					grid[col][row].setText(game.GetGrid().UpdateVisualGrid(col, row));
+				}
+			}			
+
+		}
 	}

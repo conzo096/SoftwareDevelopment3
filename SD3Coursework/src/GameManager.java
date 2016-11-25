@@ -1,28 +1,35 @@
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Random;
 import java.util.Vector;
 
 
-public class GameManager
+public class GameManager implements java.io.Serializable
 {
 		Vector<Ship> ships = new Vector<Ship>();
 		private GameGrid grid = new GameGrid();
-		
-		
-		
+		Vector<GameGrid> pastGrids = new Vector<GameGrid>();
+			
 		GameManager()
 		{
 			// Set top grid to prevent entry.
 			grid.SetTileCondition(0, 0, false);
 			MasterShip playerShip = new MasterShip();
 			ships.add(playerShip);
-		
+			pastGrids.add(grid);
 		}
 		
 		
 		
 		void Update()
 		{	
+			// Command pattern.
+			pastGrids.add(grid);
 			if(ships.size()>0)
+			{
 			for(Ship ship : ships)
 			{
 				ship.MakeMove();
@@ -50,30 +57,64 @@ public class GameManager
 				}	
 				ships.add(newShip);
 			}
-			
 			// Update sky.
 			grid.UpdateGrids(ships);
-			
+			}
 			// Check grids.
 		}
 		
 		void Undo()
 		{
-			for(Ship ship : ships)
-			{
-				ship.UndoMove();
-				
-			}
+			grid = pastGrids.remove(pastGrids.size()-1);
+			Vector<Ship> redoShips = new Vector<Ship>();
+			
+			ships = grid.GetAllShips();
+			// Ensure grid is correct.
+			grid.UpdateGrids(ships);
+			
+			
 		}
 		
 		void SaveGame()
 		{
-			
+			try
+			{
+				FileOutputStream fileOut =
+		        new FileOutputStream("Game.ser");
+		        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+		        out.writeObject(this);
+		        out.close();
+		        fileOut.close();
+		        System.out.printf("Serialized data is saved in Game.ser");
+		    }
+			catch(IOException i)
+			{
+				i.printStackTrace();
+		    }
 		}
 		
-		void LoadGame()
+		
+		static GameManager LoadGame()
 		{
-			
+			GameManager gm = null;
+		      try
+		      {
+		         FileInputStream fileIn = new FileInputStream("Game.ser");
+		         ObjectInputStream in = new ObjectInputStream(fileIn);
+		         gm = (GameManager) in.readObject();
+		         in.close();
+		         fileIn.close();
+		      }catch(IOException i)
+		      {
+		         i.printStackTrace();
+		         return gm;
+		      }catch(ClassNotFoundException c)
+		      {
+		         System.out.println("GameManager class not found");
+		         c.printStackTrace();
+		         return gm;
+		      }
+		      return gm;
 		}
 
 		public GameGrid GetGrid() {
