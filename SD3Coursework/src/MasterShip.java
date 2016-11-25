@@ -1,10 +1,10 @@
 import java.util.Random;
 
 
-public class MasterShip extends Ship
+public class MasterShip extends Ship implements ShipMode
 {
 	// Change mode to interface to allow more options. currently 0 = defensive.
-	Boolean mode;
+	//ShipMode mode = new DefensiveMode();
 	public MasterShip()
 	{
 		// Chose a random tile (Other than 0,0) to start one.
@@ -17,13 +17,17 @@ public class MasterShip extends Ship
 			GetPosition().setLocation(x,y);
 		}
 	}
+
+	public void SetMode() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void GetMode() {
+		// TODO Auto-generated method stub
+		
+	}
 	
-	void SetMode(Boolean b)
-	{
-		mode = b;
-	}
-	Boolean GetMode()
-	{
-		return mode;
-	}
+//	void SetMode(String mode);
+//	ShipMode GetMode();
 }

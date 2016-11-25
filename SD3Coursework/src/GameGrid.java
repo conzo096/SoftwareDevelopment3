@@ -15,10 +15,11 @@ public class GameGrid implements java.io.Serializable
 				sky[i][j] = new Tile();
 	}
 	
-	GameGrid(Vector<Ship> ships)
-	{	
+	GameGrid(GameGrid gg)
+	{
+		sky = gg.sky;
+		
 	}
-	
 	
 	void SetSky (Tile tiles[][])
 	{
@@ -47,11 +48,17 @@ public class GameGrid implements java.io.Serializable
 		Tile t = sky[col][row];
 		// Displays text for the labels the now.
 		String info = "";
+		if(!t.IsAllowedToEnter() && t.GetCurrentShips().size()>0)
+		{
+			info = "New enemy incoming.";
+			return info;
+		}
 		if(!t.IsAllowedToEnter())
 		{
 			info = "NO ENTRY";
 			return info;
 		}
+		
 		// Check for player ship.
 		for(Ship s : t.GetCurrentShips())
 		{
@@ -80,7 +87,7 @@ public class GameGrid implements java.io.Serializable
 	
 	Boolean UpdateGrids(Vector<Ship> ships)
 	{
-		// Better way but this works for now.
+		// Clear all the ships. Better way but this works for now.
 		for(int i =0; i<4;i++)
 		{
 			for(int j=0;j<4;j++)
@@ -100,7 +107,7 @@ public class GameGrid implements java.io.Serializable
 	}
 	
 	// Returns true if game is over.
-	boolean CheckGrids()
+/*	boolean CheckGrids()
 	{
 		boolean lost = false;
 		// x,y that has player ship.
@@ -158,7 +165,7 @@ public class GameGrid implements java.io.Serializable
 		
 		
 		return lost;
-	}
+	}*/
 
 	Vector<Ship> GetAllShips()
 	{

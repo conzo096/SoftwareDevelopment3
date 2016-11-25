@@ -12,7 +12,7 @@ public class GameManager implements java.io.Serializable
 		Vector<Ship> ships = new Vector<Ship>();
 		private GameGrid grid = new GameGrid();
 		Vector<GameGrid> pastGrids = new Vector<GameGrid>();
-			
+		Vector<Vector<Ship>> pastShips = new Vector<Vector<Ship>>();
 		GameManager()
 		{
 			// Set top grid to prevent entry.
@@ -24,15 +24,16 @@ public class GameManager implements java.io.Serializable
 		
 		
 		
-		void Update()
+		void MoveShips()
 		{	
 			// Command pattern.
-			pastGrids.add(grid);
+			pastGrids.add(new GameGrid(grid));
+			pastShips.add(new Vector<Ship>(ships));
 			if(ships.size()>0)
 			{
 			for(Ship ship : ships)
 			{
-				ship.MakeMove();
+				ship.run();
 			}
 			// Factory pattern.
 			Random rand = new Random();
@@ -65,13 +66,14 @@ public class GameManager implements java.io.Serializable
 		
 		void Undo()
 		{
-			grid = pastGrids.remove(pastGrids.size()-1);
-			Vector<Ship> redoShips = new Vector<Ship>();
-			
-			ships = grid.GetAllShips();
-			// Ensure grid is correct.
-			grid.UpdateGrids(ships);
-			
+			if(pastShips.size() > 1)
+			{
+				System.out.println(ships.toString());		
+				ships = new Vector<Ship>();
+				
+				System.out.println(ships.toString());
+				grid.UpdateGrids(ships);
+			}
 			
 		}
 		

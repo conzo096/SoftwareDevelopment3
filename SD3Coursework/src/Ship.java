@@ -61,4 +61,11 @@ public abstract class Ship extends Thread  implements java.io.Serializable
 	{
 		position = pos;
 	}
+	
+	
+	public void run()
+	{
+		MakeMove();
+		
+	}
 }

@@ -1,0 +1,5 @@
+
+public interface ShipMode
+{
+	public void SetDeffensive();
+}
