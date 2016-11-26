@@ -1,0 +1,15 @@
+
+public class Mode implements java.io.Serializable
+{
+	private Strategy strategy;
+	
+	public Mode(Strategy strat)
+	{
+		strategy = strat;
+	}
+	
+	public String executeMode()
+	{
+		return strategy.GetMode();
+	}
+}

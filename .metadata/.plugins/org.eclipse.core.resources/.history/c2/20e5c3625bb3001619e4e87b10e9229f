@@ -1,0 +1,7 @@
+
+public interface Command
+{
+	public static final String undo = "undo";
+	public static final String redo = "redo";
+	public void executeundo(String command);
+}

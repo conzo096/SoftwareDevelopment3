@@ -1,0 +1,17 @@
+import java.util.Stack;
+import java.util.Vector;
+
+public class History {
+	
+   private Stack<Vector<Ship>> undo;
+   
+   public Vector<Ship> UndoMove()
+   {
+	   Vector<Ship> = undo.pop();
+   }
+   public void AddMove()
+   {
+      System.out.println("Stock [ Name: "+name+", 
+         Quantity: " + quantity +" ] sold");
+   }
+}

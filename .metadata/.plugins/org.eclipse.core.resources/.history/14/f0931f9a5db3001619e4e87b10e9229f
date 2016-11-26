@@ -1,0 +1,190 @@
+import java.awt.Point;
+import java.awt.geom.Point2D;
+import java.util.Vector;
+
+
+public class GameGrid implements java.io.Serializable
+{
+	// Game grid.
+	private Tile[][] sky = new Tile[4][4];
+	private List<Observer> observers = new ArrayList<Observer>();
+	GameGrid()
+	{
+		for(int i =0; i < 4; i++)
+			for(int j =0; j<4;j++)
+				sky[i][j] = new Tile();
+	}
+	
+	GameGrid(GameGrid gg)
+	{
+		sky = gg.sky;
+		
+	}
+	
+	void SetSky (Tile tiles[][])
+	{
+		sky = tiles;
+		
+	}
+	void SetTileCondition(int x, int y, boolean condition)
+	{
+		if (x >-1 && y > -1 && x < 4 && y < 4)
+			sky[0][0].SetAllowedToEnter(condition);
+		
+	}
+	
+	Tile[][] GetSky()
+	{
+		return sky;
+	}
+	Tile GetTile(int col, int row)
+	{
+		return sky[col][row];
+	}
+	
+	String UpdateVisualGrid(int col, int row)
+	{
+		// OBSERVER PATTERN.
+		Tile t = sky[col][row];
+		// Displays text for the labels the now.
+		String info = "";
+		if(!t.IsAllowedToEnter() && t.GetCurrentShips().size()>0)
+		{
+			info = "New enemy incoming.";
+			return info;
+		}
+		if(!t.IsAllowedToEnter())
+		{
+			info = "NO ENTRY";
+			return info;
+		}
+		
+		// Check for player ship.
+		for(Ship s : t.GetCurrentShips())
+		{
+			if(s.getClass() == MasterShip.class)
+			{
+				info = "PlayerShip here";
+				if(t.GetCurrentShips().size()>1)
+				{
+					info += "| Num enemies: ";
+					info += t.GetCurrentShips().size()-1;
+				}
+				return info;
+			}
+		}
+		// If there is no player ship display how many enemies are in the tile.
+		if(t.GetCurrentShips().size() > 0)
+		{
+			info = "Num enemies: ";
+			info += t.GetCurrentShips().size();
+			return info;
+		}
+		
+		return info;
+
+	}
+	
+	Boolean UpdateGrids(Vector<Ship> ships)
+	{
+		Vector<Ship> newShips = new Vector<Ship>(ships);
+		// Clear all the ships. Better way but this works for now.
+		for(int i =0; i<4;i++)
+		{
+			for(int j=0;j<4;j++)
+			{
+				sky[i][j].GetCurrentShips().clear();
+			}
+		}
+		
+		for(Ship ship : newShips)
+		{
+			int x,y;
+			x = (int)ship.GetPosition().getX();
+			y = (int) ship.GetPosition().getY();
+				sky[x][y].AddShip(ship);
+		}
+		return true;
+	}
+	
+	// Returns true if game is over.
+/*	boolean CheckGrids()
+	{
+		boolean lost = false;
+		// x,y that has player ship.
+		int x=0,y = 0;
+		for(int i =0; i <4; i++)
+		{
+			for(int j=0;j<4;j++)
+			{
+				// Check if tile contains master ship.
+				for(Ship ship : sky[i][j].GetCurrentShips())
+				{
+					if(ship.getClass() == MasterShip.class)
+					{
+						x = i;
+						y = j;
+						break;
+					}
+					
+				}
+			}
+		}
+		
+		// Check how many ships in scene.
+		// One ship destroy it.
+		if(sky[x][y].GetCurrentShips().size()-1 == 1)
+			for(Ship s : sky[x][y].GetCurrentShips())
+				if(s.getClass().toString() != "MasterShip")
+					s = null;
+		// Two ships. Check ship mode.
+		if(sky[x][y].GetCurrentShips().size()-1 == 2)
+		{	for(Ship s : sky[x][y].GetCurrentShips())
+			{
+				if(s.getClass().toString() == "MasterShip")
+				{
+					MasterShip ps = (MasterShip)s;
+					if(ps.GetMode() == true)
+					{
+						lost = true;
+					}
+				}
+			}
+			if(!lost)
+			{
+				
+			}
+			
+		}
+		
+		
+		// Only one ship, remove it.
+		if(sky[x][y].GetCurrentShips().size()-1 == 1)
+			for(Ship s : sky[x][y].GetCurrentShips())
+				if(s.getClass().toString() != "MasterShip")
+					s = null;
+		
+		
+		return lost;
+	}*/
+
+	Vector<Ship> GetAllShips()
+	{
+		Vector<Ship> activeShips = new Vector<Ship>();
+		for(int i=0;i<4;i++)
+			for(int j=0;j<4;j++)
+				for(Ship s : sky[i][j].GetCurrentShips())
+					activeShips.add(s);
+		return activeShips;
+}
+
+	Point2D FindPlayerShip()
+	{
+		for(int i=0; i<4 ;i++)
+			for(int j=0;j<4;j++)
+				for(Ship s: sky[i][j].GetCurrentShips())
+					if(s.getClass() == MasterShip.class)
+						return new Point(i,j);
+		return null; 
+	}
+}

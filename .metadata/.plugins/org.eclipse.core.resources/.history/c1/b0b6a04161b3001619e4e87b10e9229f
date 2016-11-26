@@ -1,0 +1,9 @@
+
+public class Defensive implements Strategy {
+
+	public int GetMode()
+	{
+		return 0;
+	}
+
+}

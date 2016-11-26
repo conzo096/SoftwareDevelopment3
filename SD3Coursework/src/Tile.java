@@ -38,7 +38,4 @@ public class Tile implements java.io.Serializable
 	{
 		allowedToEnter = condition;
 	}
-	
-	
-	
 }

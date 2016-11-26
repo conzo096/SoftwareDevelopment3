@@ -1,15 +1,11 @@
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.Random;
-import java.util.Vector;
-
 
 public abstract class Ship extends Thread  implements java.io.Serializable
 {
 	// Current position.
-	private Point2D position; 
-	
-	
+	private Point2D position;
 	
 	public Ship()
 	{
@@ -50,8 +46,6 @@ public abstract class Ship extends Thread  implements java.io.Serializable
 			position.setLocation(x,y);
 	}
 
-	
-
 	public Point2D GetPosition()
 	{
 		return position;
@@ -65,7 +59,18 @@ public abstract class Ship extends Thread  implements java.io.Serializable
 	
 	public void run()
 	{
+		// The delay and message is to prove that the threads are working.
+		try
+		{
+			Thread.sleep(50);
+			System.out.println(this.toString());
+		} catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		MakeMove();
-		
 	}
+	
+	
 }

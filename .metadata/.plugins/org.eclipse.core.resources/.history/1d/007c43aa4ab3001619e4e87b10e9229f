@@ -1,0 +1,22 @@
+public class UndoCommand implements Command
+{
+    private final void List<Vector<Ship>> userList;
+    private final void Vector<Ship> newUser;
+
+    public AddCommand(List<FacebookUser> userList, FacebookUser newUser) {
+        this.userList = userList;
+        this.newUser = newUser;
+    }
+
+    @Override
+    public void Undo() {
+        userList.remove(newUser);
+    }
+
+    @Override
+    public void Redo()
+    {
+        userList.add(newUser);
+    }
+
+}

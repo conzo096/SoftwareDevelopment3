@@ -1,10 +1,11 @@
 import java.util.Random;
 
 
-public class MasterShip extends Ship implements ShipMode
+public class MasterShip extends Ship
 {
-	// Change mode to interface to allow more options. currently 0 = defensive.
-	//ShipMode mode = new DefensiveMode();
+	// Strategy pattern;
+	private Mode mode;
+	
 	public MasterShip()
 	{
 		// Chose a random tile (Other than 0,0) to start one.
@@ -16,18 +17,22 @@ public class MasterShip extends Ship implements ShipMode
 			y = numGen.nextInt(4);
 			GetPosition().setLocation(x,y);
 		}
+		mode = new Mode(new Defensive());
 	}
 
-	public void SetMode() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void GetMode() {
-		// TODO Auto-generated method stub
-		
+	public void PrintPosition()
+	{
+		String position = GetPosition().toString();
+		System.out.println("Pos: "+ position);
 	}
 	
-//	void SetMode(String mode);
-//	ShipMode GetMode();
+	public void SetMode(Strategy newMode)
+	{
+		mode = new Mode(newMode);
+	}
+	public Mode GetMode()
+	{
+		return mode;
+	}
+	
 }

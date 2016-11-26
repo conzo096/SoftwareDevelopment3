@@ -1,0 +1,17 @@
+
+public class Undo implements Command
+{
+
+	private History prevMove;
+	
+	 public Undo(History abcStock)
+	 {
+	      this.previousMove = abcStock;
+	   }
+	
+	public void execute()
+	{
+		return prevMove.UndoMove();
+	}
+
+}

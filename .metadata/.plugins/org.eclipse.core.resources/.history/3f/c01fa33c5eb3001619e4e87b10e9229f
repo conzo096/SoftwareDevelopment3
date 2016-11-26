@@ -1,0 +1,14 @@
+
+public class GridObserver
+{
+	protected GameGrid subject;
+	public GridObserver(GameGrid subject)
+	{
+		this.subject = subject;
+		this.subject.attach(this);
+	}
+
+	public void Update()
+	{
+		System.out.println( "Binary String: " + Integer.toBinaryString( subject.getState() ) ); 
+	}

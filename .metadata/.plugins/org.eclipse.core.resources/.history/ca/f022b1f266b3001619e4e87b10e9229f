@@ -1,0 +1,17 @@
+
+public class Undo implements Command
+{
+
+	private History abcStock;
+	
+	 public BuyStock(Stock abcStock)
+	 {
+	      this.abcStock = abcStock;
+	   }
+	
+	public void execute()
+	{
+	
+	}
+
+}

@@ -91,7 +91,7 @@ import java.awt.event.ActionEvent;
 			{
 				public void actionPerformed(ActionEvent arg0)
 				{
-					game.MoveShips();
+					game.MakeMove();
 					UpdateLabels();
 				}
 			}	);
@@ -105,7 +105,7 @@ import java.awt.event.ActionEvent;
 			{
 				public void actionPerformed(ActionEvent arg0)
 				{
-					game.Undo();
+					game.UndoMove();
 					UpdateLabels();
 				}
 			});
@@ -135,11 +135,20 @@ import java.awt.event.ActionEvent;
 			btnLoad.setBounds(521, 318, 200, 100);
 			contentPane.add(btnLoad);
 			
-			JButton btnMode = new JButton("Defensive Mode");
+			final JButton btnMode = new JButton("Defensive Mode");
 			btnMode.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-					
+					if(game.GetPlayerShip().GetMode().executeMode() == "Defensive")
+					{
+						btnMode.setText("OFFENSIVE");
+						game.GetPlayerShip().SetMode(new Offensive());
+					}
+					else if(game.GetPlayerShip().GetMode().executeMode() == "Offensive")
+					{
+						btnMode.setText("DEFENSIVE");
+						game.GetPlayerShip().SetMode(new Defensive());
+					}
 				}
 			});
 			btnMode.setBounds(720, 127, 200, 100);

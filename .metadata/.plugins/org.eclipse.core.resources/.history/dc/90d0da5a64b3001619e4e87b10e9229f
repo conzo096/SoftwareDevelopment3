@@ -1,0 +1,10 @@
+
+public class Mode implements java.io.Serializable
+{
+	private Strategy strategy;
+	
+	Mode(Strategy strat)
+	{
+		strategy = strat;
+	}
+}

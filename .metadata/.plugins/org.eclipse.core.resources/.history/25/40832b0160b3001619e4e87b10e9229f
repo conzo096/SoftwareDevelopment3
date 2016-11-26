@@ -1,0 +1,5 @@
+
+public class TextBox
+{
+	Stack<Vector<Ship>> previousShips;
+}

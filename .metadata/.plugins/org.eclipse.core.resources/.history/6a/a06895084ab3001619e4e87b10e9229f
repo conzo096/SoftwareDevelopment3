@@ -1,0 +1,13 @@
+
+public class UndoCommand implements Command
+{
+	 private List<Command> commands = Collections.emptyList();
+	    private int nextPointer = 0;
+	
+	public void execute()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+}

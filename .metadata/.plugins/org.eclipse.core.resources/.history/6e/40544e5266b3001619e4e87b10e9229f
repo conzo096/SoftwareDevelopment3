@@ -1,0 +1,16 @@
+
+public class History {
+	
+   private Vector<Vector<Ship>> undo;
+   private Vector<Vector<Ship>> redo;
+   
+   public void UndoMove()
+   {
+      System.out.println("Stock [ Name: "+name+", 
+         Quantity: " + quantity +" ] bought");
+   }
+   public void sell(){
+      System.out.println("Stock [ Name: "+name+", 
+         Quantity: " + quantity +" ] sold");
+   }
+}

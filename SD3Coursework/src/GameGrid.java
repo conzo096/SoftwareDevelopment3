@@ -1,5 +1,7 @@
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 
@@ -40,7 +42,7 @@ public class GameGrid implements java.io.Serializable
 	Tile GetTile(int col, int row)
 	{
 		return sky[col][row];
-	}
+	}	
 	
 	String UpdateVisualGrid(int col, int row)
 	{
@@ -87,6 +89,7 @@ public class GameGrid implements java.io.Serializable
 	
 	Boolean UpdateGrids(Vector<Ship> ships)
 	{
+		Vector<Ship> newShips = new Vector<Ship>(ships);
 		// Clear all the ships. Better way but this works for now.
 		for(int i =0; i<4;i++)
 		{
@@ -96,13 +99,14 @@ public class GameGrid implements java.io.Serializable
 			}
 		}
 		
-		for(Ship ship : ships)
+		for(Ship ship : newShips)
 		{
 			int x,y;
 			x = (int)ship.GetPosition().getX();
 			y = (int) ship.GetPosition().getY();
 				sky[x][y].AddShip(ship);
 		}
+	
 		return true;
 	}
 	
