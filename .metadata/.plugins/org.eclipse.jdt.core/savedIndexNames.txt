@@ -1,22 +1,6 @@
-INDEX VERSION 1.129+C:\Users\Conner\Documents\GitHub\SoftwareDevelopment3\.metadata\.plugins\org.eclipse.jdt.core
-3149099997.index
-3878781299.index
-2956956824.index
-3798027613.index
+INDEX VERSION 1.126+C:\Users\conner\Documents\GitHub\SoftwareDevelopment3\.metadata\.plugins\org.eclipse.jdt.core
 3283889844.index
-474742527.index
-2010425845.index
-1698454354.index
-230131223.index
-764822964.index
-1891729548.index
-1705944585.index
-2394592224.index
-2557198338.index
-3548468340.index
-587204207.index
-2510231558.index
-3283978374.index
-2949974689.index
-3067307218.index
+1414894843.index
 2326620408.index
+764822964.index
+1640373333.index

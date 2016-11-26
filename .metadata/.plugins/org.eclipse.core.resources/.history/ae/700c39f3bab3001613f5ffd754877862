@@ -1,0 +1,13 @@
+import java.awt.geom.Point2D;
+
+
+public class DefaultMovement implements ShipMove
+{
+
+	public Point2D Move(Point2D currentPosition)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

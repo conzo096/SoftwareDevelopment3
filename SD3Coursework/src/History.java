@@ -3,7 +3,7 @@ import java.util.Vector;
 
 public class History {
 	
-   private Stack<Vector<Ship>> undo;
+   private Stack<Vector<Ship>> undo  = new Stack<Vector<Ship>>();
    
    public Vector<Ship> UndoMove()
    {
@@ -11,6 +11,6 @@ public class History {
    }
    public void AddMove(Vector<Ship> ships)
    {
-	   undo.push(ships);
+	   undo.push(new Vector<Ship>(ships));
    }
 }

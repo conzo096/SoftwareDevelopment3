@@ -1,0 +1,16 @@
+import java.util.Stack;
+import java.util.Vector;
+
+public class History {
+	
+   private Stack<Vector<Ship>> undo  = new Stack<Vector<Ship>>();
+   
+   public Vector<Ship> UndoMove()
+   {
+	   return undo.pop();
+   }
+   public void AddMove(Vector<Ship> ships)
+   {
+	   undo.push(ships);
+   }
+}

@@ -12,7 +12,7 @@ public class GameManager implements java.io.Serializable
 {	
 	Vector<Ship> ships = new Vector<Ship>();
 	private GameGrid grid = new GameGrid();
-	
+	History history = new History();
 	// Holds all the ships positions.
 	Stack<Vector<Ship>> pastShips = new Stack<Vector<Ship>>();
 	GameManager()

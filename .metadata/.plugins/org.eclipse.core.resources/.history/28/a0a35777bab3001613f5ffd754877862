@@ -1,0 +1,6 @@
+
+public interface ShipMove 
+{
+	// 
+	Point2D Move(Point2D currentPosition);
+}

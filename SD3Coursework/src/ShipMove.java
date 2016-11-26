@@ -1,0 +1,8 @@
+
+import java.awt.geom.Point2D;
+
+
+public interface ShipMove 
+{
+	public Point2D Move(Point2D currentPosition);
+}

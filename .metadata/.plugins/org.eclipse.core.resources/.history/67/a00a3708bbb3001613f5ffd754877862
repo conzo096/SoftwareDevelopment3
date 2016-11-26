@@ -1,0 +1,42 @@
+import java.awt.geom.Point2D;
+import java.util.Random;
+
+
+public class DefaultMovement implements ShipMove
+{
+
+	public Point2D Move(Point2D currentPosition)
+	{
+	
+		// Add current position to list.
+				Random numGen = new Random();
+				boolean valid = false;
+				int x=0,y=0;
+
+				// Check to ensure valid move - move to seperate method.
+				while(valid == false)
+				{
+					valid = true;
+					x = numGen.nextInt(3) -1;
+					y = numGen.nextInt(3) -1;
+					// Check if ship has moved.
+					if(x == 0 && y == 0)
+						valid = false;
+					
+					if (valid == true)
+					{
+						x += currentPosition().getX();
+						y += currentPosition().getY();
+					}
+					// Check if ship is in tile range.
+					if(x < 0 || x >3 || y < 0 || y >3)
+						valid = false;
+					// Check it is not moving to top left corner.
+					if(x == 0 && y == 0)
+						valid = false;
+					
+				}
+		return null;
+	}
+
+}

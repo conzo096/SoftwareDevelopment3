@@ -1,0 +1,19 @@
+import java.awt.geom.Point2D;
+
+import ShipInfo.ShipMove;
+
+
+public class MoveStrat
+{
+	private ShipMove move;
+	
+	public MoveStrat(ShipMove strat)
+	{
+		move = strat;
+	}
+	
+	public Point2D ExecuteMove(Point2D pos)
+	{
+		return move.Move(pos);
+	}
+}

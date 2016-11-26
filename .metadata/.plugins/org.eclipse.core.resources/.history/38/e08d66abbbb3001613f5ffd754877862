@@ -1,0 +1,15 @@
+
+public class MoveStrat
+{
+	private ShipMove move;
+	
+	public MoveStrat(ShipMove strat)
+	{
+		move = strat;
+	}
+	
+	public String executeMode()
+	{
+		return move.GetMode();
+	}
+}

@@ -1,3 +1,4 @@
+import java.awt.geom.Point2D;
 import java.util.Random;
 
 
@@ -5,7 +6,6 @@ public class MasterShip extends Ship
 {
 	// Strategy pattern;
 	private Mode mode;
-	
 	public MasterShip()
 	{
 		// Chose a random tile (Other than 0,0) to start one.
@@ -18,6 +18,7 @@ public class MasterShip extends Ship
 			GetPosition().setLocation(x,y);
 		}
 		mode = new Mode(new Defensive());
+		
 	}
 
 	public void PrintPosition()
@@ -34,5 +35,6 @@ public class MasterShip extends Ship
 	{
 		return mode;
 	}
+
 	
 }

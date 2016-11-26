@@ -1,4 +1,6 @@
 
+
+
 public  class ShipFactory
 {
 	// Example of the factory pattern.
